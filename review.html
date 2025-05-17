@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -621,11 +620,9 @@
             }
         ];
 
-        // Retrieve user answers and correct answers
         const userAnswers = JSON.parse(localStorage.getItem('userAnswers')) || [];
         const correctAnswers = questions.map(q => q.correctAnswer);
 
-        // Calculate score
         let score = 0;
         userAnswers.forEach((answer, index) => {
             if (answer === correctAnswers[index]) {
@@ -633,14 +630,12 @@
             }
         });
 
-        // Display score
         const scoreDiv = document.getElementById('score');
         scoreDiv.innerHTML = `
             <h2>Your Score: ${score} out of ${questions.length}</h2>
             <p>${score >= 40 ? 'Excellent!' : score >= 30 ? 'Good job!' : 'Needs improvement.'}</p>
         `;
 
-        // Display incorrect answers
         const incorrectDiv = document.getElementById('incorrect-answers');
         let incorrectHTML = '<h2>Incorrect Answers:</h2>';
         let hasIncorrect = false;
