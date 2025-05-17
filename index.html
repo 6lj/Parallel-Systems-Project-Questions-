@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -626,15 +625,12 @@
             }
         ];
 
-        // Store correct answers in LocalStorage
         localStorage.setItem('correctAnswers', JSON.stringify(questions.map(q => q.correctAnswer)));
 
-        // Initialize user answers if not already present
         if (!localStorage.getItem('userAnswers')) {
             localStorage.setItem('userAnswers', JSON.stringify(new Array(questions.length).fill(null)));
         }
 
-        // Render questions
         const quizContainer = document.getElementById('quiz-container');
         questions.forEach((q, index) => {
             const questionDiv = document.createElement('div');
@@ -655,7 +651,6 @@
             quizContainer.appendChild(questionDiv);
         });
 
-        // ارسال جميع الاجابات  function
         function submitAllAnswers() {
             const userAnswers = [];
             let allAnswered = true;
