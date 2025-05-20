@@ -1,683 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تم العمل من محمد حسين ال عبيه , نظم متوازيه كليه علوم الحاسب جامعه نجران</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>اختر ماده</title>
+<style>
+    body {
+        background-color: #1a1a1a;
+        color: #ffffff;
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    header {
+        background-color: #2c2c2c;
+        padding: 20px;
+        text-align: center;
+        border-bottom: 2px solid #4CAF50;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 2.5em;
+    }
+
+    /* Optional: styles for other headings if needed
+    h2 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+    }
+
+    h3 {
+        font-size: 1.4em;
+        margin-bottom: 10px;
+    }
+    */
+
+    /* Styles for the options list */
+    ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+
+    a {
+        display: block;
+        padding: 15px;
+        background-color: #2c2c2c;
+        color: #ffffff;
+        text-decoration: none;
+        border-radius: 5px;
+        border: 1px solid #4CAF50;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    a:hover {
+        background-color: #3c3c3c;
+        transform: scale(1.02);
+    }
+
+    /* Additional classes if needed
+    .question {
+        background-color: #2c2c2c;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #4CAF50;
+    }
+
+    .button {
+        display: inline-block;
+        background-color: #4CAF50;
+        color: #ffffff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    .button:hover {
+        background-color: #45a049;
+    }
+    */
+
+    /* Media query for responsiveness */
+    @media (max-width: 600px) {
+        .container {
+            padding: 10px;
+        }
+
+        h1 {
+            font-size: 2em;
+        }
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>تم العمل من محمد حسين ال عبيه , نظم متوازيه كليه علوم الحاسب جامعه نجران</h1>
-        </header>
-        <div id="quiz-container"></div>
-        <div id="submit-all" class="text-center mt-6">
-            <button onclick="submitAllAnswers()" class="button">ارسال جميع الاجابات </button>
-        </div>
-        <p id="error-message" class="feedback"></p>
-        <div id="review-button" class="hidden text-center mt-6">
-            <a href="review.html" class="button">مراجعه الاجابات</a>
-        </div>
-    </div>
-
-    <script>
-        const questions = [
-            {
-                question: "What is Flynn's Classical Taxonomy used for?",
-                options: [
-                    "Measuring network performance",
-                    "Distinguishing multi-processor computer architectures",
-                    "Defining distributed algorithms",
-                    "Classifying operating systems"
-                ],
-                correctAnswer: "b",
-                definition: "Flynn's Classical Taxonomy: Flynn's taxonomy distinguishes multi-processor computer.",
-                page: 1
-            },
-            {
-                question: "What is a key attribute of Shared Memory systems?",
-                options: [
-                    "Memory is shared through message passing",
-                    "Ability for all processors to access all memory as global address space",
-                    "Memory access is always non-uniform",
-                    "Processors cannot share data"
-                ],
-                correctAnswer: "b",
-                definition: "Shared Memory: ability the for all processors to access all memory as global address space.",
-                page: 1
-            },
-            {
-                question: "What is a disadvantage of Shared Memory systems?",
-                options: [
-                    "High cost",
-                    "Non-Uniform Memory Access",
-                    "Error-prone communication",
-                    "Limited scalability"
-                ],
-                correctAnswer: "b",
-                definition: "Disadvantages: Non-Uniform Memory Access",
-                page: 1
-            },
-            {
-                question: "What is the main advantage of Distributed Memory systems?",
-                options: [
-                    "User-friendly programming",
-                    "Cost effective",
-                    "High memory space",
-                    "Fast data access"
-                ],
-                correctAnswer: "b",
-                definition: "Advantages: Cost effective",
-                page: 1
-            },
-            {
-                question: "What is Hybrid Memory?",
-                options: [
-                    "Memory used only in single-processor systems",
-                    "Employ both shared and distributed memory architectures",
-                    "Memory with no communication between processors",
-                    "Memory with uniform access time"
-                ],
-                correctAnswer: "b",
-                definition: "Hybrid Memory: The largest and fastest computers in the world today employ both shared and distributed memory architectures.",
-                page: 1
-            },
-            {
-                question: "What does Synchronization in parallel systems cause?",
-                options: [
-                    "Reduced memory usage",
-                    "Can cause execution time to increase",
-                    "Improved scalability",
-                    "Simplified programming"
-                ],
-                correctAnswer: "b",
-                definition: "Synchronization: waiting by at least one task and can cause a execution time to increase.",
-                page: 1
-            },
-            {
-                question: "What is Coarse Granularity?",
-                options: [
-                    "Relatively small amounts of computational work between communication event",
-                    "Relatively large amounts of computational work between communication event",
-                    "No communication between tasks",
-                    "Uniform memory access"
-                ],
-                correctAnswer: "b",
-                definition: "Coarse: relatively large amounts of computational work are done between communication event.",
-                page: 1
-            },
-            {
-                question: "What does Scalability refer to in parallel systems?",
-                options: [
-                    "Ability to reduce memory usage",
-                    "Ability to demonstrate a increase in parallel speedup with the addition of more processors",
-                    "Ability to synchronize tasks",
-                    "Ability to reduce communication overhead"
-                ],
-                correctAnswer: "b",
-                definition: "Scalability: a parallel system's (hardware and/or software) ability to demonstrate a increase in parallel speedup with the addition of more processors.",
-                page: 1
-            },
-            {
-                question: "What is Observed Speedup?",
-                options: [
-                    "Time to coordinate parallel tasks",
-                    "Wall-clock time of a serial execution",
-                    "Time to synchronize processors",
-                    "Time to complete parallel tasks"
-                ],
-                correctAnswer: "b",
-                definition: "Observed Speedup: wall-clock time of a serial execution",
-                page: 1
-            },
-            {
-                question: "What is Massively Parallel?",
-                options: [
-                    "Hardware with few processors",
-                    "Hardware that comprises a given parallel system - having many processors",
-                    "System with no communication",
-                    "System with shared memory only"
-                ],
-                correctAnswer: "b",
-                definition: "Massively Parallel: hardware that comprises a given parallel system - having many processors.",
-                page: 2
-            },
-            {
-                question: "What is Embarrassingly Parallel?",
-                options: [
-                    "Tasks that require constant communication",
-                    "Solving many similar, but independent tasks simultaneously",
-                    "Tasks that cannot be parallelized",
-                    "Tasks with high synchronization needs"
-                ],
-                correctAnswer: "b",
-                definition: "Embarrassingly Parallel: Solving many similar, but independent tasks simultaneously.",
-                page: 2
-            },
-            {
-                question: "How is SPEEDUP measured?",
-                options: [
-                    "Parallel time divided by serial time",
-                    "Serial time divided by parallel time",
-                    "Number of processors divided by time",
-                    "Time divided by number of processors"
-                ],
-                correctAnswer: "b",
-                definition: "SPEEDUP: is measured as SERIAL TIME divided by PARALLEL TIME",
-                page: 2
-            },
-            {
-                question: "What is Efficiency in parallel systems?",
-                options: [
-                    "Ratio of speedup over number of processing elements",
-                    "Total time of execution",
-                    "Amount of memory used",
-                    "Number of communication events"
-                ],
-                correctAnswer: "a",
-                definition: "EFFICIENCY: is measured as the ratio of SPEEDUP over NUMBER of PROCESSING ELEMENTS",
-                page: 2
-            },
-            {
-                question: "What does Amdahl's Law state?",
-                options: [
-                    "Speedup is unlimited in parallel systems",
-                    "A small number can effectively limit the speedup of a parallel algorithm",
-                    "All tasks can be parallelized",
-                    "Efficiency increases with more processors"
-                ],
-                correctAnswer: "b",
-                definition: "Amdahl's Law: A small number can effectively limit the speedup of a parallel algorithm.",
-                page: 2
-            },
-            {
-                question: "What is a Distributed System?",
-                options: [
-                    "A single computer with multiple processors",
-                    "Hardware or software components located at networked",
-                    "A system with shared memory only",
-                    "A system with no communication"
-                ],
-                correctAnswer: "b",
-                definition: "distributed system: is one in which hardware or software components located at networked",
-                page: 2
-            },
-            {
-                question: "What is Middleware?",
-                options: [
-                    "Hardware for communication",
-                    "Software layers to provide a programming abstraction",
-                    "Operating system for distributed systems",
-                    "Network protocol"
-                ],
-                correctAnswer: "b",
-                definition: "Middleware: is software layers to provide a programming abstraction",
-                page: 2
-            },
-            {
-                question: "What is a key advantage of the Client-Server Model?",
-                options: [
-                    "Decentralized system",
-                    "Centralized system with all data in a single place",
-                    "No need for communication",
-                    "High fault tolerance"
-                ],
-                correctAnswer: "b",
-                definition: "Advantages: - Centralized system with all data in a single place.",
-                page: 3
-            },
-            {
-                question: "What is a disadvantage of the Client-Server Model?",
-                options: [
-                    "High cost of implementation",
-                    "Server are prone to Denial of Service",
-                    "Limited scalability",
-                    "Complex programming"
-                ],
-                correctAnswer: "b",
-                definition: "Disadvantages: - Server are prone to Denial of Service",
-                page: 3
-            },
-            {
-                question: "What is the Peer-to-Peer Model?",
-                options: [
-                    "A model with a central coordinator",
-                    "All the distributed computing nodes, are all the same in terms of computing capabilities",
-                    "A model with no communication",
-                    "A model with shared memory"
-                ],
-                correctAnswer: "b",
-                definition: "Peer-to-Peer Model: all the distributed computing nodes, are all the same in terms of computing capabilities.",
-                page: 3
-            },
-            {
-                question: "What is Latency in communication channels?",
-                options: [
-                    "Total amount of information transmitted",
-                    "Delay between the start of a message's transmission and the beginning its receipt",
-                    "Bandwidth of the channel",
-                    "Number of processors involved"
-                ],
-                correctAnswer: "b",
-                definition: "Latency: the delay between the start of a message's transmission from one process and the beginning its receipt by another.",
-                page: 4
-            },
-            {
-                question: "What is a Synchronous Distributed System?",
-                options: [
-                    "A system with no bounds on delays",
-                    "A distributed system in which bounds are defined on message transmission",
-                    "A system with no communication",
-                    "A system with shared memory"
-                ],
-                correctAnswer: "b",
-                definition: "Synchronous Distributed System: A distributed system in which the following bounds are defines: - Each message transmitted over a channel is received",
-                page: 4
-            },
-            {
-                question: "What is an Omission Failure?",
-                options: [
-                    "Any type of error in the system",
-                    "Fails process to perform a actions that it is supposed to do",
-                    "Failure due to timing issues",
-                    "Failure due to security breaches"
-                ],
-                correctAnswer: "b",
-                definition: "Omission failures: fails process to perform a actions that it is supposed to do.",
-                page: 4
-            },
-            {
-                question: "What is Leader Election in distributed systems?",
-                options: [
-                    "Assigning colors to graph vertices",
-                    "A process in Distributed Systems where we elect a leader from the existing processes",
-                    "Synchronizing clocks across nodes",
-                    "Managing data replicas"
-                ],
-                correctAnswer: "b",
-                definition: "Leader election: A process in Distributed Systems where we elect a leader from the existing processes in the network.",
-                page: 5
-            },
-            {
-                question: "What is Mutual Exclusion?",
-                options: [
-                    "Allowing multiple processes to access resources simultaneously",
-                    "A concurrency control property which is introduced to prevent race conditions",
-                    "Synchronizing clocks",
-                    "Distributing data across nodes"
-                ],
-                correctAnswer: "b",
-                definition: "Mutual exclusion: A concurrency control property which is introduced to prevent race conditions.",
-                page: 5
-            },
-            {
-                question: "What is a Tree in graph theory?",
-                options: [
-                    "A graph with cycles",
-                    "An undirected graph with no cycles",
-                    "A disconnected graph",
-                    "A graph with directed edges"
-                ],
-                correctAnswer: "b",
-                definition: "tree: is an undirected graph with no cycles.",
-                page: 6
-            },
-            {
-                question: "What is the Depth of a Node in a tree?",
-                options: [
-                    "Number of edges from the node to a leaf",
-                    "Length of the path from the root to the node",
-                    "Number of children of the node",
-                    "Number of nodes in the tree"
-                ],
-                correctAnswer: "b",
-                definition: "depth of node: is the length of the path from the root to the node.",
-                page: 6
-            },
-            {
-                question: "What is a Spanning Tree?",
-                options: [
-                    "A tree with no vertices",
-                    "A subgraph T of a undirected graph G is a spanning tree of G if it is a tree and contains every vertex of G",
-                    "A graph with cycles",
-                    "A tree with directed edges"
-                ],
-                correctAnswer: "b",
-                definition: "Spanning Trees: A subgraph T of a undirected graph G=(V, E) is a spanning tree of G if it is a tree and contains every vertex of G.",
-                page: 7
-            },
-            {
-                question: "What is Breadth-First Search (BFS)?",
-                options: [
-                    "Explores deepest nodes first",
-                    "Explores nodes nearest the root before exploring nodes further away",
-                    "Uses a stack for traversal",
-                    "Ignores unvisited nodes"
-                ],
-                correctAnswer: "b",
-                definition: "Breath-first search (BFS): a rooted tree will be constructed ... (BFS) explores nodes nearest the root before exploring nodes further away",
-                page: 6
-            },
-            {
-                question: "What is Depth-First Search (DFS)?",
-                options: [
-                    "Explores nodes nearest the root first",
-                    "Explores a path all the way to a leaf before backtracking",
-                    "Uses a queue for traversal",
-                    "Ignores child nodes"
-                ],
-                correctAnswer: "b",
-                definition: "Depth-first search (DFS): ... (DFS) explores a path all the way to a leaf before backtracking",
-                page: 6
-            },
-            {
-                question: "What is Message Complexity?",
-                options: [
-                    "Total time of execution",
-                    "Total number of messages exchanged",
-                    "Amount of memory used",
-                    "Number of processors involved"
-                ],
-                correctAnswer: "b",
-                definition: "Message complexity: Total number of messages exchanged.",
-                page: 7
-            },
-            {
-                question: "What is a key factor contributing to scalability?",
-                options: [
-                    "High memory usage",
-                    "Hardware",
-                    "Limited communication",
-                    "Single processor usage"
-                ],
-                correctAnswer: "b",
-                definition: "Factors that contribute to scalability include? - Hardware",
-                page: 8
-            },
-            {
-                question: "What is a factor of Parallel Overhead?",
-                options: [
-                    "Task start-up time",
-                    "Memory capacity",
-                    "Processor speed",
-                    "Network bandwidth"
-                ],
-                correctAnswer: "a",
-                definition: "Parallel overhead can include factors such as? - Task start-up time",
-                page: 8
-            },
-            {
-                question: "What is an Architectural Limitation?",
-                options: [
-                    "Sequential code",
-                    "Latency and Bandwidth",
-                    "Poor scheduling",
-                    "Communication frequency"
-                ],
-                correctAnswer: "b",
-                definition: "Architectural Limitations? - Latency and Bandwidth",
-                page: 9
-            },
-            {
-                question: "What is a goal of designing parallel applications?",
-                options: [
-                    "Increased memory usage",
-                    "Performance",
-                    "Reduced processor count",
-                    "Limited scalability"
-                ],
-                correctAnswer: "b",
-                definition: "Goals with the design of parallel applications? - Performance",
-                page: 8
-            },
-            {
-                question: "What is a disadvantage of Distributed Systems?",
-                options: [
-                    "Improved performance",
-                    "Network reliance",
-                    "Resource sharing",
-                    "High reliability"
-                ],
-                correctAnswer: "b",
-                definition: "Disadvantages: - Network reliance",
-                page: 9
-            },
-            {
-                question: "What is a common characteristic of Distributed Systems?",
-                options: [
-                    "Single point of failure",
-                    "Transparency",
-                    "Homogeneous technology",
-                    "No concurrency"
-                ],
-                correctAnswer: "b",
-                definition: "Common Characteristics? - Transparency",
-                page: 9
-            },
-            {
-                question: "What is a reason for Distributed Computing Systems?",
-                options: [
-                    "Limited scalability",
-                    "Resource sharing",
-                    "High cost",
-                    "Single processor usage"
-                ],
-                correctAnswer: "b",
-                definition: "Reasons for Distributed Computing Systems? - Resource sharing",
-                page: 9
-            },
-            {
-                question: "What is the Interaction Model in fundamental models?",
-                options: [
-                    "Protecting system security",
-                    "Computation occurs within processes that interact by passing messages",
-                    "Handling system failures",
-                    "Managing hardware components"
-                ],
-                correctAnswer: "b",
-                definition: "Interaction model: Computation occurs within processes that interact by passing messages, resulting in communication.",
-                page: 4
-            },
-            {
-                question: "What is the Security Model concerned with?",
-                options: [
-                    "Improving performance",
-                    "Exposes them to attack by both external and internal agents",
-                    "Managing communication channels",
-                    "Synchronizing clocks"
-                ],
-                correctAnswer: "b",
-                definition: "Security model: The openness of distributed systems exposes them to attack by both external and internal agents.",
-                page: 4
-            },
-            {
-                question: "What is a task accomplished by Distributed Algorithms?",
-                options: [
-                    "Hardware design",
-                    "Resource management",
-                    "Processor manufacturing",
-                    "Network installation"
-                ],
-                correctAnswer: "b",
-                definition: "Distributed Algorithms Accomplish tasks like? - Resource management",
-                page: 10
-            },
-            {
-                question: "What is a challenge for Distributed Algorithms?",
-                options: [
-                    "Single global clock",
-                    "Uncertainty of timing, order of events, inputs",
-                    "Shared address space",
-                    "Homogeneous hardware"
-                ],
-                correctAnswer: "b",
-                definition: "Must work in difficult settings? - Uncertainty of timing, order of events, inputs",
-                page: 10
-            },
-            {
-                question: "What is a Connected Graph?",
-                options: [
-                    "A graph with no paths between vertices",
-                    "Graph if there is at least one path between every two vertices in G",
-                    "A graph with cycles only",
-                    "A graph with directed edges"
-                ],
-                correctAnswer: "b",
-                definition: "Connected: if every pair of vertices in G are connected. Graph if there is at least one path between every two vertices in G",
-                page: 14
-            },
-            {
-                question: "What is an Adjacency Matrix?",
-                options: [
-                    "A list of edges in a graph",
-                    "A very simple way to represent a graph",
-                    "A tree with weighted edges",
-                    "A queue for BFS"
-                ],
-                correctAnswer: "b",
-                definition: "Adjacency Matrix: m is a very simple way to represent a graph.",
-                page: 6
-            },
-            {
-                question: "What is a Minimum Spanning Tree (MST)?",
-                options: [
-                    "A tree with maximum weight",
-                    "A spanning tree of minimum weight",
-                    "A graph with cycles",
-                    "A tree with no vertices"
-                ],
-                correctAnswer: "b",
-                definition: "Minimum Spanning Tree: - is a spanning tree of minimum weight",
-                page: 8
-            },
-            {
-                question: "What is Uniform Memory Access (UMA)?",
-                options: [
-                    "Memory with unequal access times",
-                    "Equal access and access times to memory",
-                    "Memory with no cache coherence",
-                    "Memory used in distributed systems"
-                ],
-                correctAnswer: "b",
-                definition: "Uniform Memory Access (UMA): - Equal access and access times to memory.",
-                page: 12
-            },
-            {
-                question: "What is a disadvantage of Network Operating Systems?",
-                options: [
-                    "High fault tolerance",
-                    "Does not provide benefits of distributed OSs",
-                    "Complex implementation",
-                    "Limited resource sharing"
-                ],
-                correctAnswer: "b",
-                definition: "Disadvantage: Does not provide benefits of distributed OSs",
-                page: 3
-            },
-            {
-                question: "What is a characteristic of Centralized Systems?",
-                options: [
-                    "Autonomous components",
-                    "Have a single point of control and failure",
-                    "Heterogeneous technology",
-                    "Multiple points of failure"
-                ],
-                correctAnswer: "b",
-                definition: "Centralized Systems: - have a single point of control and failure",
-                page: 13
-            },
-            {
-                question: "What is a feature of Distributed Operating Systems?",
-                options: [
-                    "High autonomy",
-                    "Single system image (SSI)",
-                    "No global job coordination",
-                    "Limited fault tolerance"
-                ],
-                correctAnswer: "b",
-                definition: "Distributed Operating Systems: - A single system-wide OS (implying SSI)",
-                page: 13
-            },
-            {
-                question: "What is the difference between Parallel and Distributed Systems?",
-                options: [
-                    "Parallel systems focus on fault tolerance",
-                    "Distributed systems focus on speedup",
-                    "Parallel systems are tightly coupled, distributed are loosely coupled",
-                    "Distributed systems use shared memory"
-                ],
-                correctAnswer: "c",
-                definition: "Parallel vs Distributed: Multiple processors? - Tightly coupled systems, Parallel processing systems. - Loosely coupled systems, Distributed computing systems.",
-                page: 14
-            },
-            {
-                question: "What is a Directed Graph?",
-                options: [
-                    "A graph with no edges",
-                    "Consists of a set V of vertices and a set E of edges such that e E is associated with an ordered pair of vertices",
-                    "A graph with no vertices",
-                    "A graph with cycles only"
-                ],
-                correctAnswer: "b",
-                definition: "Directed graph: consists of a set V of vertices and a set E of edges such that e E is associated with an ordered pair of vertices.",
-                page: 14
-            }
-        ];
-
-        localStorage.setItem('correctAnswers', JSON.stringify(questions.map(q => q.correctAnswer)));
-
-        if (!localStorage.getItem('userAnswers')) {
-            localStorage.setItem('userAnswers', JSON.stringify(new Array(questions.length).fill(null)));
-        }
-
-        const quizContainer = document.getElementById('quiz-container');
-        questions.forEach((q, index) => {
-            const questionDiv = document.createElement('div');
-            questionDiv.className = 'question';
-            questionDiv.innerHTML = `
-                <h2>Question ${index + 1}: ${q.question}</h2>
-                <ul>
-                    ${q.options.map((option, i) => `
-                        <li>
-                            <label>
-                                <input type="radio" name="q${index}" value="${String.fromCharCode(97 + i)}">
-                                ${String.fromCharCode(97 + i)}) ${option}
-                            </label>
-                        </li>
-                    `).join('')}
-                </ul>
-            `;
-            quizContainer.appendChild(questionDiv);
-        });
-
-        function submitAllAnswers() {
-            const userAnswers = [];
-            let allAnswered = true;
-            let missingQuestions = [];
-
-            questions.forEach((q, index) => {
-                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
-                if (!selectedOption) {
-                    allAnswered = false;
-                    missingQuestions.push(index + 1);
-                }
-                userAnswers.push(selectedOption ? selectedOption.value : null);
-            });
-
-            const errorMessage = document.getElementById('error-message');
-            if (!allAnswered) {
-                errorMessage.textContent = `Please answer all questions. Missing: Question${missingQuestions.length > 1 ? 's' : ''} ${missingQuestions.join(', ')}.`;
-                errorMessage.className = 'feedback error';
-                return;
-            }
-
-            localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
-            errorMessage.textContent = 'All answers submitted!';
-            errorMessage.className = 'feedback success';
-            document.getElementById('submit-all').className = 'hidden';
-            document.getElementById('review-button').className = 'text-center mt-6';
-        }
-    </script>
+<header>
+    <h1>اختر الماده , تم العمل من محمد ال عبيه</h1>
+</header>
+<div class="container">
+    <ul>
+        <li><a href="1.html">Parallel Systems نظم متوازيه</a></li>
+        <li><a href="2.html">Secure Computers امن حاسبات</a></li>
+    </ul>
+</div>
 </body>
 </html>

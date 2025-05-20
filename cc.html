@@ -4,17 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مراجعه</title>
+    <title>تم العمل من محمد حسين ال عبيه , نظم متوازيه كليه علوم الحاسب جامعه نجران</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>مراجعه</h1>
+            <h1>تم العمل من محمد حسين ال عبيه , نظم متوازيه كليه علوم الحاسب جامعه نجران</h1>
         </header>
-        <div id="score"></div>
-        <div id="incorrect-answers"></div>
-        <a href="index.html" class="button">ارجع للخيارات</a>
+        <div id="quiz-container"></div>
+        <div id="submit-all" class="text-center mt-6">
+            <button onclick="submitAllAnswers()" class="button">ارسال جميع الاجابات </button>
+        </div>
+        <p id="error-message" class="feedback"></p>
+        <div id="review-button" class="hidden text-center mt-6">
+            <a href="review.html" class="button">مراجعه الاجابات</a>
+        </div>
     </div>
 
     <script>
@@ -621,51 +626,63 @@
             }
         ];
 
-        // Retrieve user answers and correct answers
-        const userAnswers = JSON.parse(localStorage.getItem('userAnswers')) || [];
-        const correctAnswers = questions.map(q => q.correctAnswer);
+        // Store correct answers in LocalStorage
+        localStorage.setItem('correctAnswers', JSON.stringify(questions.map(q => q.correctAnswer)));
 
-        // Calculate score
-        let score = 0;
-        userAnswers.forEach((answer, index) => {
-            if (answer === correctAnswers[index]) {
-                score++;
-            }
-        });
-
-        // Display score
-        const scoreDiv = document.getElementById('score');
-        scoreDiv.innerHTML = `
-            <h2>Your Score: ${score} out of ${questions.length}</h2>
-            <p>${score >= 40 ? 'Excellent!' : score >= 30 ? 'Good job!' : 'Needs improvement.'}</p>
-        `;
-
-        // Display incorrect answers
-        const incorrectDiv = document.getElementById('incorrect-answers');
-        let incorrectHTML = '<h2>Incorrect Answers:</h2>';
-        let hasIncorrect = false;
-
-        userAnswers.forEach((answer, index) => {
-            if (answer !== correctAnswers[index]) {
-                hasIncorrect = true;
-                const q = questions[index];
-                incorrectHTML += `
-                    <div class="question">
-                        <h3>Question ${index + 1}: ${q.question}</h3>
-                        <p><strong>Your Answer:</strong> ${answer ? q.options[answer.charCodeAt(0) - 97] : 'No answer'}</p>
-                        <p><strong>Correct Answer:</strong> ${q.options[q.correctAnswer.charCodeAt(0) - 97]}</p>
-                        <p><strong>Definition:</strong> ${q.definition}</p>
-                        <p><strong>Page:</strong> ${q.page}</p>
-                    </div>
-                `;
-            }
-        });
-
-        if (!hasIncorrect) {
-            incorrectHTML += '<p>All answers were correct!</p>';
+        // Initialize user answers if not already present
+        if (!localStorage.getItem('userAnswers')) {
+            localStorage.setItem('userAnswers', JSON.stringify(new Array(questions.length).fill(null)));
         }
 
-        incorrectDiv.innerHTML = incorrectHTML;
+        // Render questions
+        const quizContainer = document.getElementById('quiz-container');
+        questions.forEach((q, index) => {
+            const questionDiv = document.createElement('div');
+            questionDiv.className = 'question';
+            questionDiv.innerHTML = `
+                <h2>Question ${index + 1}: ${q.question}</h2>
+                <ul>
+                    ${q.options.map((option, i) => `
+                        <li>
+                            <label>
+                                <input type="radio" name="q${index}" value="${String.fromCharCode(97 + i)}">
+                                ${String.fromCharCode(97 + i)}) ${option}
+                            </label>
+                        </li>
+                    `).join('')}
+                </ul>
+            `;
+            quizContainer.appendChild(questionDiv);
+        });
+
+        // ارسال جميع الاجابات  function
+        function submitAllAnswers() {
+            const userAnswers = [];
+            let allAnswered = true;
+            let missingQuestions = [];
+
+            questions.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="q${index}"]:checked`);
+                if (!selectedOption) {
+                    allAnswered = false;
+                    missingQuestions.push(index + 1);
+                }
+                userAnswers.push(selectedOption ? selectedOption.value : null);
+            });
+
+            const errorMessage = document.getElementById('error-message');
+            if (!allAnswered) {
+                errorMessage.textContent = `Please answer all questions. Missing: Question${missingQuestions.length > 1 ? 's' : ''} ${missingQuestions.join(', ')}.`;
+                errorMessage.className = 'feedback error';
+                return;
+            }
+
+            localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+            errorMessage.textContent = 'All answers submitted!';
+            errorMessage.className = 'feedback success';
+            document.getElementById('submit-all').className = 'hidden';
+            document.getElementById('review-button').className = 'text-center mt-6';
+        }
     </script>
 </body>
 </html>

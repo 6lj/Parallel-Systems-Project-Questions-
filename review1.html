@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>مراجعة</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>مراجعة</h1>
+    </header>
+    <div id="score"></div>
+    <div id="incorrect-answers"></div>
+    <a href="index.html" class="button">ارجع إلى الخيارات</a>
+</div>
+
+
+<script src="questions.js"></script>
+
+<script>
+
+  const userAnswers = JSON.parse(localStorage.getItem('userAnswers')) || [];
+
+  let score = 0;
+  questions.forEach((q, index) => {
+    if (userAnswers[index] && userAnswers[index] === q.correctAnswer) {
+      score++;
+    }
+  });
+
+  const scoreDiv = document.getElementById('score');
+  scoreDiv.innerHTML = `
+      <h2>نتيجتك: ${score} من ${questions.length}</h2>
+      <p>${score >= questions.length * 0.8 ? 'ممتاز!' : score >= questions.length * 0.6 ? 'عمل جيد!' : 'حاول مرة أخرى.'}</p>
+  `;
+
+  const incorrectDiv = document.getElementById('incorrect-answers');
+  let html = '<h2>الأسئلة التي أُجبت بشكل خاطئ:</h2>';
+
+  let hasIncorrect = false;
+  questions.forEach((q, index) => {
+    if (userAnswers[index] !== q.correctAnswer) {
+      hasIncorrect = true;
+      const userAnswer = userAnswers[index] || 'لم يجاوب';
+      const userOptionIndex = userAnswer !== 'لم يجاوب' ? userAnswer.charCodeAt(0) - 97 : -1;
+      html += `
+        <div class="question">
+            <h3>السؤال ${index + 1}: ${q.question}</h3>
+            <button class="translation-toggle" onclick="toggleTranslation(${index})">عرض الترجمة العربية</button>
+            <p id="translation-${index}" class="hidden"><strong>الترجمة:</strong> ${q.arabicTranslation}</p>
+            <p><strong>إجابتك:</strong> ${userAnswer !== 'لم يجاوب' ? q.options[userOptionIndex] : userAnswer}</p>
+            <p><strong>الإجابة الصحيحة:</strong> ${q.options[q.correctAnswer.charCodeAt(0) - 97]}</p>
+            <p><strong>التعريف:</strong> ${q.definition}</p>
+            <p><strong>الشرح (بالعربية):</strong> ${q.explanation}</p>
+            <p><strong>صفحة:</strong> ${q.page}, <strong>الفصل:</strong> ${q.chapter}</p>
+        </div>
+      `;
+    }
+  });
+
+  if (!hasIncorrect) {
+    html += '<p>جميع الإجابات صحيحة! أحسنت.</p>';
+  }
+
+  incorrectDiv.innerHTML = html;
+
+  function toggleTranslation(index) {
+    const translation = document.getElementById(`translation-${index}`);
+    const button = document.querySelector(`button[onclick="toggleTranslation(${index})"]`);
+    if (translation.classList.contains('hidden')) {
+      translation.classList.remove('hidden');
+      button.textContent = 'إخفاء الترجمة';
+    } else {
+      translation.classList.add('hidden');
+      button.textContent = 'عرض الترجمة العربية';
+    }
+  }
+</script>
+</body>
+</html>
